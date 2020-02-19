@@ -5,7 +5,7 @@ import json
 def make_game_library_from_json( json_data ):
     #Initialize a new GameLibrary
     game_library = test_data.GameLibrary()
-    for i in range(len(json_data)):
+    for i in range(len(json_data["title"])):
 
         title = json_data["title"][i]
         year = json_data["year"][i]
