@@ -7,7 +7,6 @@ jfile = "data/qiuyiy_cc1.json"
 def read_json(jfile):
     with open(jfile, "r") as reader:
         j = json.load(reader)
-    print(len(j))
     levelpack = cc_classes.CCLevelPack()
     for i in range(len(j)):
         thisJson = j[i]
@@ -18,7 +17,6 @@ def read_json(jfile):
         newLevel.upper_layer = thisJson["upper_layer"]
         newLevel.lower_layer = thisJson["lower_layer"]
         opFields = thisJson["optional_fields"]
-        print(opFields[0])
         for i in range(len(opFields)):
             if opFields[i]["field_type"] == "hint":
                 field = cc_classes.CCMapHintField(opFields[i]["content"])
@@ -40,13 +38,32 @@ def read_json(jfile):
                     c.append(cccord)
                 field = cc_classes.CCMonsterMovementField(c)
                 newLevel.add_field(field)
-
+            if opFields[i]["field_type"] == "trap":
+                coords = opFields[i]["content"]
+                t = []
+                for l in range(len(coords)):
+                    btnX = coords[l][0][0]
+                    btnY = coords[l][0][1]
+                    trapX = coords[l][1][0]
+                    trapY = coords[l][1][1]
+                    print(btnX, btnY, trapX, trapY)
+                    trap = cc_classes.CCTrapControl(btnX, btnY, trapX, trapY)
+                    t.append(trap)
+                field = cc_classes.CCTrapControlsField(t)
+                newLevel.add_field(field)
 
 
         levelpack.add_level(newLevel)
     #print(levelpack)
     return levelpack
     pass
+
+"""
+{
+          "field_type" : "trap",
+          "content" : [[[1, 1],[2, 10]],[[11, 1],[10, 10]]]
+       }
+"""
 
 filePack = read_json(jfile)
 datFile = "data/qiuyiy_cc1.dat"
