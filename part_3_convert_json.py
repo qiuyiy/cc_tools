@@ -44,16 +44,9 @@ def read_json(jfile):
 
 
         levelpack.add_level(newLevel)
-    print(levelpack)
+    #print(levelpack)
     return levelpack
     pass
-
-"""
-{
-          "field_type" : "monster",
-          "content" : [[7, 7]]
-       }
-"""
 
 filePack = read_json(jfile)
 datFile = "data/qiuyiy_cc1.dat"
